@@ -5,8 +5,8 @@ const score = document.getElementById("score");
 const days = document.getElementById("days");
 const endScreen = document.getElementById("endScreen");
 
-daysLeft = 60;
-gameOverNumber = 3;
+daysLeft = 100;
+gameOverNumber = 50;
 loopPlay = false;
 
 start();
@@ -43,6 +43,16 @@ function game() {
 
   const gameOver = () => {
     endScreen.innerHTML = `<div class="gameOver">Game over <br/>score :${count} </div>`;
+    endScreen.style.visibility = "visible";
+    endScreen.style.opacity = "1";
+    loopPlay = false;
+  };
+
+  const youWin = () => {
+    let accuracy = Math.round((count / daysLeft) * 100);
+    // a chaque clic on perdra un jour de confinement on a droit a 60 clic dans le jeu donc en divisant le rsultat de nombre d'éléménet tué
+    //par le nombre entier de clic possible, on tombera sur un pourcentage de réussite
+    endScreen.innerHTML = `<div class="youWin">bravo ! tu as atomisé le virus <br/><span>précision : ${accuracy}%</span></div>`;
     endScreen.style.visibility = "visible";
     endScreen.style.opacity = "1";
     loopPlay = false;
@@ -91,4 +101,15 @@ document.addEventListener("click", function (e) {
   }
 });
 
-//37.28
+canvas.addEventListener("click", () => {
+  if (daysRemaining > 0) {
+    daysRemaining--; // à chaque fois qu'on clic sur canvas t fais -1
+    days.innerHTML = daysRemaining; // on remet a jour sur le DOM
+  }
+});
+
+endScreen.addEventListener("click", () => {
+  start();
+  endScreen.style.opacity = "0";
+  endScreen.style.visibility = "hidden";
+});
