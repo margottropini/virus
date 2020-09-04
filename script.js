@@ -3,7 +3,34 @@
 const canvas = document.getElementById("canvas");
 const score = document.getElementById("score");
 const days = document.getElementById("days");
-const endScreen = document.getElementById("canvenScreenas");
+const endScreen = document.getElementById("endScreen");
+
+daysLeft = 60;
+gameOverNumber = 50;
+
+start();
+function start() {
+  count = 0; // Quand on lance pas la fonction, le count se remet à 0
+  getFaster = 6000; // me permettra de faire poper les éléments plus vite :6 secondes
+  daysRemaining = daysLeft;
+
+  canvas.innerHTML = ""; // Quand je clique sur le bouton le canvas se vide et se met à 0
+  score.innerHTML = count; //et dans l'innerHtml on mettra le résultat de 0 // a chaque clic on fera un count ++1 et on affichera le counter (ligne56)
+  days.innertHTML = daysRemaining;
+}
+
+game();
+
+function game() {
+  //getFaster = 6000;
+  let randomTime = Math.round(Math.random() * getFaster);
+  getFaster > 700 ? (getFaster = getFaster * 0.9) : ""; // SI tu es superieur a 700 alors
+
+  setTimeout(() => {
+    virusPop();
+    game();
+  }, randomTime);
+}
 
 virusPop();
 
@@ -31,5 +58,20 @@ function virusPop() {
 
   canvas.appendChild(virus); //Virus est un enfant de canvas, il faut donc l'appeler
 }
+// Remove elemet clicked
 
-// Projet javascript créer un jeu pur javascript 21.22
+// tu vas écouter le clc, a chaque clic tu vas faire ne fonction avec un evenemnt
+document.addEventListener("click", function (e) {
+  let targetElement = e.target || e.srcElement; // Let targetElement coorespond à = e.target OU || à z.qrcElement
+
+  //console.log(targetElement); // Me permet d'identifier tous les éléments cliqués
+
+  if (targetElement.classList.contains("virus")) {
+    // SI targetElement sa classList contient 'virus'
+    targetElement.remove(); /// Alors l'élément que tu as ciblé/cliqué tu l'enlève
+    count++; //counteur +1
+    score.innerHTML = count;
+  }
+});
+
+//37.28
