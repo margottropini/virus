@@ -6,7 +6,8 @@ const days = document.getElementById("days");
 const endScreen = document.getElementById("endScreen");
 
 daysLeft = 60;
-gameOverNumber = 50;
+gameOverNumber = 3;
+loopPlay = false;
 
 start();
 function start() {
@@ -19,17 +20,33 @@ function start() {
   days.innertHTML = daysRemaining;
 }
 
-game();
+loopPlay ? "" : game(); // Si tu es égale a vrai tu fais rien, si non tu lances la fonction game
+loopPlay = true;
 
 function game() {
-  //getFaster = 6000;
   let randomTime = Math.round(Math.random() * getFaster);
-  getFaster > 700 ? (getFaster = getFaster * 0.9) : ""; // SI tu es superieur a 700 alors
+  getFaster > 700 ? (getFaster = getFaster * 0.9) : ""; // SI tu es superieur a 700 alors getfaster tu es égal à get faster * 0.90 et si c'est faux on met rien
 
   setTimeout(() => {
-    virusPop();
-    game();
+    if (daysRemaining === 0) {
+      // SI les jours restants sont === 0 on joue youWIng l'utilisateur à gagné
+      youWin();
+    } else if (canvas.childElementCount < gameOverNumber) {
+      // Si c'est en dessous de 50 virus, on continue à les faire poper et on relance game()
+      virusPop();
+      game();
+    } else {
+      // SI  le nombre de gameOverNumber est superier, alors on lance la fonction gameover
+      gameOver();
+    }
   }, randomTime);
+
+  const gameOver = () => {
+    endScreen.innerHTML = `<div class="gameOver">Game over <br/>score :${count} </div>`;
+    endScreen.style.visibility = "visible";
+    endScreen.style.opacity = "1";
+    loopPlay = false;
+  };
 }
 
 virusPop();
@@ -60,8 +77,8 @@ function virusPop() {
 }
 // Remove elemet clicked
 
-// tu vas écouter le clc, a chaque clic tu vas faire ne fonction avec un evenemnt
 document.addEventListener("click", function (e) {
+  // tu vas écouter le clc, a chaque clic tu vas faire ne fonction avec un evenemnt
   let targetElement = e.target || e.srcElement; // Let targetElement coorespond à = e.target OU || à z.qrcElement
 
   //console.log(targetElement); // Me permet d'identifier tous les éléments cliqués
