@@ -20,14 +20,14 @@ function virusPop() {
 
   let x, y;
   x = y = Math.random() * 45 + 30; // Je randomise la taille du virus. Grace au + 30, mon virus fera minimum 30px
-  virus.style.setProperty("--x", `${x} px`); // La ou tu as la variable x, tu injectes le résultat de x
-  virus.style.setProperty("--y", `${y} px`);
+  virus.style.setProperty("--x", `${x}px`); // La ou tu as la variable x, tu injectes le résultat de x
+  virus.style.setProperty("--y", `${y}px`);
 
   let plusMinus = Math.random() < 0.5 ? -1 : 1; // Si math random est inferieur a 0.5 tu fais -1 SI NON +1
   let trX = Math.random() * 500 * plusMinus;
   let trY = Math.random() * 500 * plusMinus;
-  virus.style.setProperty("--trX", `${trX}%`); //On veut injecter dans le sass de manière dynamique.
-  virus.style.setProperty("--trY", `${trY}%`);
+  virus.style.setProperty("--trX", `${trX}px`); // La ou tu as la variable x, tu injectes le résultat de x
+  virus.style.setProperty("--trY", `${trY}px`);
 
   canvas.appendChild(virus); //Virus est un enfant de canvas, il faut donc l'appeler
 }

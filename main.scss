@@ -147,10 +147,10 @@ body {
       animation: virusAnim 14s forwards;
 
       &:hover {
-        --scaler: 1.03;
+        --scaler: 1.05;
       }
       &:active {
-        --scaler: 0.97;
+        --scaler: 0.95;
       }
     }
     @keyframes virusAnim {
