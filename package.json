@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/KobeKenjo/basic_project_file#readme",
   "dependencies": {
-    "sass": "^1.26.10"
+    "sass": "^1.29.0"
   }
 }
